@@ -6,7 +6,7 @@ if(localStorage.getItem('producto')!=undefined ){
             <div class="compra__item__image">
                 <img src="${datos.image}" alt="artículo comprado">
             </div>
-            <p class="compra__item__price">${datos.price}</p>`
+            <p class="compra__item__price">$${datos.price}</p>`
 }else{
     console.log('no hay datos')
     

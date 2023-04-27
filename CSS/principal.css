@@ -42,6 +42,7 @@ ul {
   width: 50%;
   padding-right: 50px;
   color: red;
+  cursor: pointer;
 }
 
 main {
