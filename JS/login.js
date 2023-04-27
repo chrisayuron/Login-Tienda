@@ -32,7 +32,7 @@ login.addEventListener('click',(evento)=>{
     }
 })
 if(existe==true){
-   location.assign("./principal.html")
+   location.assign("./HTML/principal.html")
 }else{
    document.querySelector('.error').style.opacity=1
    setTimeout(function(){
