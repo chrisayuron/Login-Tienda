@@ -21,7 +21,7 @@ async function traer(){
   try{  
     const respuesta=await fetch(url)
     if (!respuesta.ok) {
-      throw new Error('Error en la solicitud HTTP: ' + response.status);
+      throw new Error('Error en la solicitud HTTP: ' + respuesta.status);
     }
     const datos=await respuesta.json()
     elementos=Array.from(datos)
@@ -45,22 +45,66 @@ async function traer(){
     loading.style.display = 'none';
   }
 
-  const cerrar=document.querySelector('.modal__close')
-  const ventanaModal=document.querySelector('.ventana__modal')
- 
-    cerrar.addEventListener('click',cerrarModal)
+
+  /*CODIGO EXPLICADO EN CLASE*/
+  // const cerrar=document.querySelector('.modal__close')
+  // const ventanaModal=document.querySelector('.ventana__modal')
+  // cerrar.addEventListener('click',cerrarModal)
    
 
-function cerrarModal(){
-  ventanaModal.style.display='none'
-}
+  // function cerrarModal(){
+  //   ventanaModal.style.display='none'
+  // }
   
+  // let seleccionado=null
+  // tarjetas.addEventListener('click',(evento)=>{
+  //   if(evento.target.classList.contains('btn')){
+  //     seleccionado=elementos.filter(tarjeta=>tarjeta.title===evento.target.parentElement.parentElement.querySelector('.card__title').textContent)
+  //     console.log(seleccionado)
+  //     ventanaModal.style.display='flex'
+  //     const modalBody=document.querySelector('.modal__body')
+  //     modalBody.innerHTML=`
+  //     <div class="card">
+  //     <h3 class="card__title">${seleccionado[0].title}</h3>
+  //     <div class="card__image">
+  //     <img src="${seleccionado[0].image}">
+  //     </div>
+  //     <p class="card__description">${seleccionado[0].description}</p>
+  //     <p class="card__price">$${seleccionado[0].price}</p>
+  //     <div class="card__button">
+  //         <button class="btn btn-comprar">COMPRAR</button>
+  //         <button class="btn btn-cancelar">CANCELAR</button>
+  //     </div>
+  // </div>  `
+  //   }
+
+  //   ventanaModal.addEventListener('click',(evento)=>{
+  //     if(evento.target.classList.contains('btn-cancelar')){
+  //       cerrarModal()
+  //     }else if(evento.target.classList.contains('btn-comprar')){
+  //       if (confirm(`Seguro que desea comprar ${seleccionado[0].title}`)===true){
+  //         localStorage.setItem('producto',JSON.stringify(seleccionado))
+  //       }
+  //     }
+  //   })
+  // })
+
+
+/*CODIGO EN PRUEBA*/
+  const cerrar=document.querySelector('.modal__close')
+  const ventanaModal=document.querySelector('.ventana__modal')
+  
+  function cerrarModal(){
+    ventanaModal.style.display='none'
+  }
+  cerrar.addEventListener('click',cerrarModal)
   tarjetas.addEventListener('click',(evento)=>{
+
     let seleccionado
     modal=document.querySelector('.modal__body')
       if(evento.target.classList.contains('btn')){
         ventanaModal.style.display='flex'
-        seleccionado=elementos.filter(item=>item.title==evento.target.parentElement.parentElement.querySelector('.card__title').textContent)        
+        seleccionado=elementos.filter(item=>item.title===evento.target.parentElement.parentElement.querySelector('.card__title').textContent)        
         modal.innerHTML=`
       <div class="card">
       <h3 class="card__title">${seleccionado[0].title}</h3>
@@ -74,9 +118,17 @@ function cerrarModal(){
           <button class="btn btn-cancelar">CANCELAR</button>
       </div>
   </div>  `}
+   
+ventanaModal.addEventListener('click',(evento)=>{
+    if(evento.target.classList.contains('btn-comprar')){
+        if(confirm(`Seguro que desea adquirir ${seleccionado[0].title}`)){
+        localStorage.setItem('producto',JSON.stringify(seleccionado[0]))
+        location.assign("./final.html")
+        }
+        }
+    })
 
   const close=document.querySelector('.btn-cancelar')
-  console.log(close)
    close.addEventListener('click',cerrarModal)
 })
   
@@ -88,5 +140,8 @@ function cerrarModal(){
 
 traer()
 
+document.querySelector('.salir').addEventListener('click',()=>{
+    location.assign('../index.html')
+})
 
 
